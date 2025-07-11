@@ -1,0 +1,92 @@
+/* Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Navbar */
+.navbar {
+  background-color: #ffffffcc; /* Slight transparency for cool effect */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(10px); /* Adds a frosted-glass look */
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.logo h1 {
+  color: #111;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.nav-menu {
+  display: flex;
+  gap: 2rem;
+  list-style-type: none;
+}
+
+.nav-menu a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.nav-menu a:hover {
+  color: #007BFF;
+  transform: scale(1.05);
+}
+
+/* Hero Section */
+.hero {
+  height: 100vh;
+  background-image: url('../Images/Home.png');
+  background-size: cover;
+  background-position: center;
+  background-color: rgba(0, 0, 0, 0.4); /* Darker overlay */
+  background-blend-mode: overlay;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 60px;
+  color: white;
+  padding-top: 100px; /* Adjust for navbar height */
+}
+
+.hero-text h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.hero-text p {
+  font-size: 1.2rem;
+  font-weight: 300;
+  margin-bottom: 1.5rem;
+}
+
+.hero-text button {
+  width: auto;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.hero-text button:hover {
+  background-color: #0056b3;
+}

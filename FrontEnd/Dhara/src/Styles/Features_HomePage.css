@@ -1,0 +1,32 @@
+.Features{
+    display: flex;
+    padding: 20px;
+    background-color:  #ffffffcc;
+
+}
+.Features-grid{
+  height: 500px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 20px;
+    align-items: center;
+}
+.Features-grid-item{
+    width: 100%;
+    height: 200px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.icon{
+    font-size: 100px;
+    color: lightblack;
+}
+.Features-grid-item h3{
+    margin: 0 0 10px;
+    color: lightblack;
+}

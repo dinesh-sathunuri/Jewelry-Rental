@@ -1,0 +1,48 @@
+.review-section {
+  padding: 60px 20px;
+  background-color: #f9f9f9;
+  text-align: center;
+}
+
+.review-section h2 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+}
+
+.review-card {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.review-text {
+  font-size: 1.2rem;
+  color: #444;
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
+.review-author {
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 20px;
+}
+
+.review-buttons button {
+  margin: 0 10px;
+  font-size: 1.5rem;
+  background: none;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.review-buttons button:hover {
+  border-color: #000;
+  color: #000;
+}
