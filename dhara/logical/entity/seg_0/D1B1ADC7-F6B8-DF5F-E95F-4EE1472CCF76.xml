@@ -1,0 +1,133 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="D1B1ADC7-F6B8-DF5F-E95F-4EE1472CCF76" name="INVENTORY">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:08:00 UTC</createdTime>
+<ownerDesignName>dhara</ownerDesignName>
+<engineerTo>
+<item key="CBAE8A07-EE59-88C1-FE87-047FEC1ED955" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="PURCHASE_TOTAL_PRICE" id="2B088765-96DE-1997-D824-FC0258CD137B">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:08:10 UTC</createdTime>
+<ownerDesignName>dhara</ownerDesignName>
+<engineerTo>
+<item key="CBAE8A07-EE59-88C1-FE87-047FEC1ED955" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="PURCHASE_ID" id="29B374AF-6EF8-5677-8F73-C19C878ECA8D">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:09:32 UTC</createdTime>
+<ownerDesignName>dhara</ownerDesignName>
+<engineerTo>
+<item key="CBAE8A07-EE59-88C1-FE87-047FEC1ED955" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="CREATEDAT" id="521CFCD0-D6D4-DA1A-57A5-AD18E85419ED">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:09:55 UTC</createdTime>
+<ownerDesignName>dhara</ownerDesignName>
+<engineerTo>
+<item key="CBAE8A07-EE59-88C1-FE87-047FEC1ED955" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="START_DATE" id="CCAD10DD-8728-D3DE-265C-DD091E7FA5A9">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:10:06 UTC</createdTime>
+<ownerDesignName>dhara</ownerDesignName>
+<engineerTo>
+<item key="CBAE8A07-EE59-88C1-FE87-047FEC1ED955" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="END_DATE" id="588D132D-5F76-FEA3-0098-5DD9E42E5116">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:10:14 UTC</createdTime>
+<ownerDesignName>dhara</ownerDesignName>
+<engineerTo>
+<item key="CBAE8A07-EE59-88C1-FE87-047FEC1ED955" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="STATUS" id="1FEF50FD-EF62-E318-A40A-CEB3996C2BEF">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:10:19 UTC</createdTime>
+<ownerDesignName>dhara</ownerDesignName>
+<engineerTo>
+<item key="CBAE8A07-EE59-88C1-FE87-047FEC1ED955" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="PAYMENT_METHOD" id="3314EBA5-DBDB-C04B-6732-0FB05EA9C8DF">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:10:32 UTC</createdTime>
+<ownerDesignName>dhara</ownerDesignName>
+<engineerTo>
+<item key="CBAE8A07-EE59-88C1-FE87-047FEC1ED955" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="CUSTOMER_ID" id="4F28AC12-D18A-0AA1-9DA5-FB422B0F344A">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:12:16 UTC</createdTime>
+<generatorID>504AA5F3-A51C-C03A-F74F-632A629B1489</generatorID>
+<ownerDesignName>dhara</ownerDesignName>
+<engineerTo>
+<item key="CBAE8A07-EE59-88C1-FE87-047FEC1ED955" value="true"/>
+</engineerTo>
+<referedAttribute>EF855F73-4C59-1D30-1A28-38884E5C2EF8</referedAttribute>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="PRODUCT_ID" id="6EDC24C7-45D7-36D7-045A-6B1CE0047946">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:12:45 UTC</createdTime>
+<generatorID>7EA67368-612D-C54E-C3F0-0C82EA1F032B</generatorID>
+<ownerDesignName>dhara</ownerDesignName>
+<engineerTo>
+<item key="CBAE8A07-EE59-88C1-FE87-047FEC1ED955" value="true"/>
+</engineerTo>
+<referedAttribute>EB2CDEEA-E94A-7799-2820-8A5B1463E526</referedAttribute>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="22E047B0-DBDA-D921-33C6-8A7357728954" name="INVENTORY PK">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:09:53 UTC</createdTime>
+<ownerDesignName>dhara</ownerDesignName>
+<engineerTo>
+<item key="CBAE8A07-EE59-88C1-FE87-047FEC1ED955" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>29B374AF-6EF8-5677-8F73-C19C878ECA8D</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

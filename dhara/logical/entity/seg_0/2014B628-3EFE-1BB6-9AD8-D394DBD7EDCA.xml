@@ -1,0 +1,109 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="2014B628-3EFE-1BB6-9AD8-D394DBD7EDCA" name="Product">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:02:11 UTC</createdTime>
+<ownerDesignName>dhara</ownerDesignName>
+<engineerTo>
+<item key="CBAE8A07-EE59-88C1-FE87-047FEC1ED955" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="PRODUCT_ID" id="EB2CDEEA-E94A-7799-2820-8A5B1463E526">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:05:03 UTC</createdTime>
+<ownerDesignName>dhara</ownerDesignName>
+<engineerTo>
+<item key="CBAE8A07-EE59-88C1-FE87-047FEC1ED955" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="LENGTH" id="AC3ABE1E-A729-492D-C930-D8E2C969A16E">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:05:14 UTC</createdTime>
+<ownerDesignName>dhara</ownerDesignName>
+<engineerTo>
+<item key="CBAE8A07-EE59-88C1-FE87-047FEC1ED955" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="MATERIAL" id="FEBA5A4F-0814-C7AF-A4B7-AD12E7057115">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:05:25 UTC</createdTime>
+<ownerDesignName>dhara</ownerDesignName>
+<engineerTo>
+<item key="CBAE8A07-EE59-88C1-FE87-047FEC1ED955" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="DESIGN" id="41BE6177-0F19-E672-05AE-565A46DF0FBD">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:06:55 UTC</createdTime>
+<ownerDesignName>dhara</ownerDesignName>
+<engineerTo>
+<item key="CBAE8A07-EE59-88C1-FE87-047FEC1ED955" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="COLOR" id="A0DDE58E-EF75-FEA2-4F08-F237DC22A994">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:07:00 UTC</createdTime>
+<ownerDesignName>dhara</ownerDesignName>
+<engineerTo>
+<item key="CBAE8A07-EE59-88C1-FE87-047FEC1ED955" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="LISTABLE" id="CFABCCC3-0B9D-AA36-A196-957A5AC2610B">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:07:06 UTC</createdTime>
+<ownerDesignName>dhara</ownerDesignName>
+<engineerTo>
+<item key="CBAE8A07-EE59-88C1-FE87-047FEC1ED955" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="PRICE_PER_DAY" id="07E2335B-8920-171B-24A4-46E094862E81">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:07:45 UTC</createdTime>
+<ownerDesignName>dhara</ownerDesignName>
+<engineerTo>
+<item key="CBAE8A07-EE59-88C1-FE87-047FEC1ED955" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="F3E36D84-E6B4-5BB4-1DEB-0D3A71F615FA" name="Product PK">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:10:55 UTC</createdTime>
+<ownerDesignName>dhara</ownerDesignName>
+<engineerTo>
+<item key="CBAE8A07-EE59-88C1-FE87-047FEC1ED955" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>EB2CDEEA-E94A-7799-2820-8A5B1463E526</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

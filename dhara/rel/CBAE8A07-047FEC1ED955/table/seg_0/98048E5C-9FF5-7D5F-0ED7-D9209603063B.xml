@@ -1,0 +1,75 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="98048E5C-9FF5-7D5F-0ED7-D9209603063B" name="CUSTOMER">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:17:45 UTC</createdTime>
+<generatorID>F316D2D0-158F-5147-1CA7-3DF4654F2491</generatorID>
+<ownerDesignName>dhara</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="CUSTOMER_ID" id="903D0265-0CC4-59AD-F8BA-5D166F33C23A">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:17:45 UTC</createdTime>
+<generatorID>EF855F73-4C59-1D30-1A28-38884E5C2EF8</generatorID>
+<ownerDesignName>dhara</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CUSTOMER_NAME" id="FA42F67C-FE6B-1262-2A32-C7CFD6E8B748">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:17:45 UTC</createdTime>
+<generatorID>3792B873-718D-2BAB-476B-C02C81E7CB90</generatorID>
+<ownerDesignName>dhara</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CUSTOMER_EMAILID" id="6488F5B5-FAC7-2C4C-1602-173C006BF0C7">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:17:45 UTC</createdTime>
+<generatorID>69963CDB-9B78-08C4-8F61-3CC45A35EB22</generatorID>
+<ownerDesignName>dhara</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CUSTOMER_PHONENUMBER" id="B6724A43-3471-1832-286D-A9E1AD42D999">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:17:45 UTC</createdTime>
+<generatorID>C9DCC6C2-B466-A162-92F5-BCD0B0A5208A</generatorID>
+<ownerDesignName>dhara</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CUSTOMER_ADDRESS" id="A68E1C2F-1769-F62E-F1F3-C6BD3CA8D5CF">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:17:45 UTC</createdTime>
+<generatorID>6C2DA02A-767D-D8C5-4051-BA679F49776F</generatorID>
+<ownerDesignName>dhara</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="311E6E7A-994B-2DC2-087E-E5EA1FE79F62" name="CUSTOMER_PK">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:17:45 UTC</createdTime>
+<generatorID>91932DDD-1F2A-7748-76E9-453C7BE26394</generatorID>
+<ownerDesignName>dhara</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="903D0265-0CC4-59AD-F8BA-5D166F33C23A"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

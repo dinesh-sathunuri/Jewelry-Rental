@@ -1,0 +1,95 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="2F15E613-D98E-1B44-9E4D-0F2889C09F1E" name="Product">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:17:45 UTC</createdTime>
+<generatorID>2014B628-3EFE-1BB6-9AD8-D394DBD7EDCA</generatorID>
+<ownerDesignName>dhara</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="PRODUCT_ID" id="F80C4089-B62C-553A-CC48-54E55423C9BE">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:17:45 UTC</createdTime>
+<generatorID>EB2CDEEA-E94A-7799-2820-8A5B1463E526</generatorID>
+<ownerDesignName>dhara</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LENGTH" id="82DE4DD4-7B33-A1AD-8843-F9429C7E1DA5">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:17:45 UTC</createdTime>
+<generatorID>AC3ABE1E-A729-492D-C930-D8E2C969A16E</generatorID>
+<ownerDesignName>dhara</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="MATERIAL" id="99443D7F-AAC6-A483-B89A-9FEDF0C75149">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:17:45 UTC</createdTime>
+<generatorID>FEBA5A4F-0814-C7AF-A4B7-AD12E7057115</generatorID>
+<ownerDesignName>dhara</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="DESIGN" id="E194AF52-30A9-81E4-5EDF-EAEEB235C951">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:17:45 UTC</createdTime>
+<generatorID>41BE6177-0F19-E672-05AE-565A46DF0FBD</generatorID>
+<ownerDesignName>dhara</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="COLOR" id="FA4840E7-7D38-94CA-5E32-831EBCC7F443">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:17:45 UTC</createdTime>
+<generatorID>A0DDE58E-EF75-FEA2-4F08-F237DC22A994</generatorID>
+<ownerDesignName>dhara</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LISTABLE" id="8EE1D7C5-E0EE-5D12-32AB-02A1F08AB565">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:17:45 UTC</createdTime>
+<generatorID>CFABCCC3-0B9D-AA36-A196-957A5AC2610B</generatorID>
+<ownerDesignName>dhara</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PRICE_PER_DAY" id="C917919B-4A4D-D368-66B0-56E48DA2B6B7">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:17:45 UTC</createdTime>
+<generatorID>07E2335B-8920-171B-24A4-46E094862E81</generatorID>
+<ownerDesignName>dhara</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="D2DCA552-A89E-97F4-24FE-B7B2B28C55FA" name="Product_PK">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:17:45 UTC</createdTime>
+<generatorID>F3E36D84-E6B4-5BB4-1DEB-0D3A71F615FA</generatorID>
+<ownerDesignName>dhara</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F80C4089-B62C-553A-CC48-54E55423C9BE"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

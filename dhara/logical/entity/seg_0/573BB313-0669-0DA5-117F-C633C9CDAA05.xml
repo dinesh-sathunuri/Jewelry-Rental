@@ -1,0 +1,110 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="573BB313-0669-0DA5-117F-C633C9CDAA05" name="MEETING_ID">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:14:17 UTC</createdTime>
+<ownerDesignName>dhara</ownerDesignName>
+<engineerTo>
+<item key="CBAE8A07-EE59-88C1-FE87-047FEC1ED955" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="MEETING_ID" id="FACC6615-C6AF-E4F1-FE6D-B9C351EB3126">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:14:28 UTC</createdTime>
+<ownerDesignName>dhara</ownerDesignName>
+<engineerTo>
+<item key="CBAE8A07-EE59-88C1-FE87-047FEC1ED955" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="DATE" id="90B52896-83BB-753C-01E3-F75F65FA5A18">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:14:35 UTC</createdTime>
+<ownerDesignName>dhara</ownerDesignName>
+<engineerTo>
+<item key="CBAE8A07-EE59-88C1-FE87-047FEC1ED955" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="START_TIME" id="B585AD28-980C-7E64-51F6-5F0FB354C7A9">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:14:43 UTC</createdTime>
+<ownerDesignName>dhara</ownerDesignName>
+<engineerTo>
+<item key="CBAE8A07-EE59-88C1-FE87-047FEC1ED955" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="END_TIME" id="6BD7E927-F6A4-B794-A814-3C2AAE1FC2A2">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:15:02 UTC</createdTime>
+<ownerDesignName>dhara</ownerDesignName>
+<engineerTo>
+<item key="CBAE8A07-EE59-88C1-FE87-047FEC1ED955" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="STATUS" id="2AF10A2D-7982-6E15-162A-124059DAC839">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:15:07 UTC</createdTime>
+<ownerDesignName>dhara</ownerDesignName>
+<engineerTo>
+<item key="CBAE8A07-EE59-88C1-FE87-047FEC1ED955" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="TYPE_OF_MEETING" id="007FDE02-4C28-606D-CBBB-7BD1EC883728">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:16:03 UTC</createdTime>
+<ownerDesignName>dhara</ownerDesignName>
+<engineerTo>
+<item key="CBAE8A07-EE59-88C1-FE87-047FEC1ED955" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="CUSTOMER_ID" id="1662F5C0-9E63-DB53-F078-7643B9D937FE">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:17:02 UTC</createdTime>
+<generatorID>BA859EA5-1943-6834-6577-16E30FD23A99</generatorID>
+<ownerDesignName>dhara</ownerDesignName>
+<engineerTo>
+<item key="CBAE8A07-EE59-88C1-FE87-047FEC1ED955" value="true"/>
+</engineerTo>
+<referedAttribute>EF855F73-4C59-1D30-1A28-38884E5C2EF8</referedAttribute>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="B568F996-B633-B75B-5FCD-2A6FA8385A31" name="MEETING_ID PK">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:14:34 UTC</createdTime>
+<ownerDesignName>dhara</ownerDesignName>
+<engineerTo>
+<item key="CBAE8A07-EE59-88C1-FE87-047FEC1ED955" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>FACC6615-C6AF-E4F1-FE6D-B9C351EB3126</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

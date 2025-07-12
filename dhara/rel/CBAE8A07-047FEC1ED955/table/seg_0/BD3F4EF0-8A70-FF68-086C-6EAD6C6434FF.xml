@@ -1,0 +1,143 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="BD3F4EF0-8A70-FF68-086C-6EAD6C6434FF" name="INVENTORY">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:17:45 UTC</createdTime>
+<generatorID>D1B1ADC7-F6B8-DF5F-E95F-4EE1472CCF76</generatorID>
+<ownerDesignName>dhara</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="PURCHASE_TOTAL_PRICE" id="DDBFC8D0-D95A-C019-E074-F6647153B81E">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:17:45 UTC</createdTime>
+<generatorID>2B088765-96DE-1997-D824-FC0258CD137B</generatorID>
+<ownerDesignName>dhara</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PURCHASE_ID" id="DDDCF9DF-D455-804D-A3F5-EC4B3685346D">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:17:45 UTC</createdTime>
+<generatorID>29B374AF-6EF8-5677-8F73-C19C878ECA8D</generatorID>
+<ownerDesignName>dhara</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CREATEDAT" id="3287B688-A6AD-DDA0-013B-983F6B148BE9">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:17:45 UTC</createdTime>
+<generatorID>521CFCD0-D6D4-DA1A-57A5-AD18E85419ED</generatorID>
+<ownerDesignName>dhara</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="START_DATE" id="FDE54ACC-0CEC-674E-A333-1F79BF0C9FF7">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:17:45 UTC</createdTime>
+<generatorID>CCAD10DD-8728-D3DE-265C-DD091E7FA5A9</generatorID>
+<ownerDesignName>dhara</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="END_DATE" id="88C4AE84-E620-752F-920C-588110D02CA2">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:17:45 UTC</createdTime>
+<generatorID>588D132D-5F76-FEA3-0098-5DD9E42E5116</generatorID>
+<ownerDesignName>dhara</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="STATUS" id="F4768BF9-C761-B8C5-D371-0EAF5A66997A">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:17:45 UTC</createdTime>
+<generatorID>1FEF50FD-EF62-E318-A40A-CEB3996C2BEF</generatorID>
+<ownerDesignName>dhara</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PAYMENT_METHOD" id="607EB97A-D796-DAE1-F956-E00BA886E106">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:17:45 UTC</createdTime>
+<generatorID>3314EBA5-DBDB-C04B-6732-0FB05EA9C8DF</generatorID>
+<ownerDesignName>dhara</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CUSTOMER_ID" id="6F5D3E74-6684-7145-A4C1-3DEAF224575A">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:17:45 UTC</createdTime>
+<generatorID>4F28AC12-D18A-0AA1-9DA5-FB422B0F344A</generatorID>
+<ownerDesignName>dhara</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="6D949454-9399-6760-BD4E-D14B2EABD81F" referredColumn="903D0265-0CC4-59AD-F8BA-5D166F33C23A"/>
+</associations>
+</Column>
+<Column name="PRODUCT_ID" id="3ADB9952-6153-5B5E-CC30-C7C39E69C66C">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:17:45 UTC</createdTime>
+<generatorID>6EDC24C7-45D7-36D7-045A-6B1CE0047946</generatorID>
+<ownerDesignName>dhara</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="2D9D8E3C-218C-5740-AA1E-E95C780DB1D3" referredColumn="F80C4089-B62C-553A-CC48-54E55423C9BE"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="B68A7B0D-917A-9721-1CF5-01F7FFC38537" name="INVENTORY_PK">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:17:45 UTC</createdTime>
+<generatorID>22E047B0-DBDA-D921-33C6-8A7357728954</generatorID>
+<ownerDesignName>dhara</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="DDDCF9DF-D455-804D-A3F5-EC4B3685346D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="583D00A7-B60E-4802-88E1-5D9337BFCE85" name="INVENTORY_CUSTOMER_FK">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:17:45 UTC</createdTime>
+<generatorID>504AA5F3-A51C-C03A-F74F-632A629B1489</generatorID>
+<ownerDesignName>dhara</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="6F5D3E74-6684-7145-A4C1-3DEAF224575A"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="15ED61EE-32C7-712D-591B-A2EAE99ECE98" name="INVENTORY_Product_FK">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:17:45 UTC</createdTime>
+<generatorID>7EA67368-612D-C54E-C3F0-0C82EA1F032B</generatorID>
+<ownerDesignName>dhara</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="3ADB9952-6153-5B5E-CC30-C7C39E69C66C"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

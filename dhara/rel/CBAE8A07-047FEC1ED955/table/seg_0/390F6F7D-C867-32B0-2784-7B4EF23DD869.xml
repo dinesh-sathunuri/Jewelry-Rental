@@ -1,0 +1,109 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="390F6F7D-C867-32B0-2784-7B4EF23DD869" name="MEETING_ID">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:17:45 UTC</createdTime>
+<generatorID>573BB313-0669-0DA5-117F-C633C9CDAA05</generatorID>
+<ownerDesignName>dhara</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="MEETING_ID" id="E77941A4-FE7E-551E-D871-675F976C5B4F">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:17:45 UTC</createdTime>
+<generatorID>FACC6615-C6AF-E4F1-FE6D-B9C351EB3126</generatorID>
+<ownerDesignName>dhara</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="DATE" id="7816295E-2A55-1D7F-C3E1-1A002A02DA94">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:17:45 UTC</createdTime>
+<generatorID>90B52896-83BB-753C-01E3-F75F65FA5A18</generatorID>
+<ownerDesignName>dhara</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="START_TIME" id="41A88B8B-22E6-F756-F63E-8AF75D458ECE">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:17:45 UTC</createdTime>
+<generatorID>B585AD28-980C-7E64-51F6-5F0FB354C7A9</generatorID>
+<ownerDesignName>dhara</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="END_TIME" id="09274C4E-40A7-A6BD-1C3C-1C4E3132F77F">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:17:45 UTC</createdTime>
+<generatorID>6BD7E927-F6A4-B794-A814-3C2AAE1FC2A2</generatorID>
+<ownerDesignName>dhara</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="STATUS" id="E8C5084B-3D82-83CE-46DF-9C3048C72378">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:17:45 UTC</createdTime>
+<generatorID>2AF10A2D-7982-6E15-162A-124059DAC839</generatorID>
+<ownerDesignName>dhara</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="TYPE_OF_MEETING" id="A33A1306-A81A-FA5A-5249-466376DE0368">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:17:45 UTC</createdTime>
+<generatorID>007FDE02-4C28-606D-CBBB-7BD1EC883728</generatorID>
+<ownerDesignName>dhara</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CUSTOMER_ID" id="8B9F34F0-19AF-EE61-6132-FEF8D149F2D6">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:17:45 UTC</createdTime>
+<generatorID>1662F5C0-9E63-DB53-F078-7643B9D937FE</generatorID>
+<ownerDesignName>dhara</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="9D1C91C1-D825-8CAA-499A-48F5869CB31B" referredColumn="903D0265-0CC4-59AD-F8BA-5D166F33C23A"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="4B3191E0-E61E-8A1A-21B0-69CA03F8CF6B" name="MEETING_ID_PK">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:17:45 UTC</createdTime>
+<generatorID>B568F996-B633-B75B-5FCD-2A6FA8385A31</generatorID>
+<ownerDesignName>dhara</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="E77941A4-FE7E-551E-D871-675F976C5B4F"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="F042CD40-0354-B787-ABBF-82085A03844C" name="MEETING_ID_CUSTOMER_FK">
+<createdBy>dineshsathunuri</createdBy>
+<createdTime>2025-06-27 03:17:45 UTC</createdTime>
+<generatorID>BA859EA5-1943-6834-6577-16E30FD23A99</generatorID>
+<ownerDesignName>dhara</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="8B9F34F0-19AF-EE61-6132-FEF8D149F2D6"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
