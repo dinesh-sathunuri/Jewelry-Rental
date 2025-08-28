@@ -5,6 +5,6 @@ import App from './App.jsx'
 import Home from './Pages/Home.jsx'
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <Home />
+    <App />
   </StrictMode>,
 )

@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import "../styles/Collection_HomePage.css";
-import collection1 from "../Images/collection1.png";
-import collection2 from "../Images/collection2.png";
-import collection3 from "../Images/collection3.png";
+import collection1 from "../Images/collection1.jpeg";
+import collection2 from "../Images/collection2.jpeg";
+import collection3 from "../Images/collection3.jpeg";
 
 const Collections = () => {
   const collectionImages = [
@@ -11,22 +11,51 @@ const Collections = () => {
     { src: collection3, alt: "Timeless Glamour" },
   ];
 
+  const itemsRef = useRef([]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    itemsRef.current.forEach((item) => {
+      if (item) observer.observe(item);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section className="collections">
       <div className="collections-container">
         <div className="collections-title">
           <h2>Our Signature Collections</h2>
           <p>
-            Whether you seek elegant simplicity for everyday wear or a striking
-            design for life's grand occasions, our collections offer a diverse
-            range of styles to suit every taste and preference.
+            From subtle elegance to bold statements, our signature collections
+            offer timeless designs crafted with care for every occasion.
           </p>
         </div>
 
         <div className="collections-grid">
           {collectionImages.map((image, index) => (
-            <div className="collection-item" key={index}>
-              <img src={image.src} alt={image.alt} />
+            <div
+              className="collection-item hidden"
+              key={index}
+              ref={(el) => (itemsRef.current[index] = el)}
+              style={{ animationDelay: `${index * 0.2}s` }}
+              tabIndex={0}
+            >
+              <div className="collection-image-wrapper">
+                <img src={image.src} alt={image.alt} />
+              </div>
               <p>{image.alt}</p>
             </div>
           ))}

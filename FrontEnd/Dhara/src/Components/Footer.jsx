@@ -19,19 +19,6 @@ const Footer = () => {
           </ul>
         </div>
 
-        {/* Vendors */}
-        <div className="footer-column">
-          <h4>VENDORS</h4>
-          <ul>
-            <li>Become a Vendor</li>
-            <li>Vendor Sign In</li>
-          </ul>
-          <div className="footer-badge">
-            <p>As seen on</p>
-            <strong>the Knot</strong>
-          </div>
-        </div>
-
         {/* Connect + Newsletter */}
         <div className="footer-column">
           <h4>CONNECT WITH US</h4>
@@ -55,7 +42,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="footer-bottom">
-        <p>© 2023 Jewelry Rental. All rights reserved.</p>
+        <p>© 2025 Jewelry Rental. All rights reserved.</p>
       </div>
     </footer>
   );

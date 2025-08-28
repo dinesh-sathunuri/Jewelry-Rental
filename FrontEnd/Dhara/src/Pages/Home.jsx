@@ -8,8 +8,7 @@ import ReviewSection from '../Components/ReviewSection.jsx';
 export default function HomePage() {
   return (
     <>
-      <Header />
-      <Features />
+      <Header visible={true} />
       <Collections />
       <ReviewSection />
       <Footer />
