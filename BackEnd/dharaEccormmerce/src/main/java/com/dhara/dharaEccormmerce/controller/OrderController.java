@@ -1,7 +1,6 @@
 package com.dhara.dharaEccormmerce.controller;
 
 import com.dhara.dharaEccormmerce.dto.OrderDTO;
-import com.dhara.dharaEccormmerce.entity.Order;
 import com.dhara.dharaEccormmerce.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -13,29 +12,31 @@ import java.util.List;
 @RequestMapping("/api/orders")
 @RequiredArgsConstructor
 public class OrderController {
+
     private final OrderService orderService;
 
+    /** Public — customers place orders without logging in. */
     @PostMapping
     public ResponseEntity<OrderDTO> createOrder(@RequestBody OrderDTO orderDto) {
-        OrderDTO savedOrder = orderService.createOrder(orderDto);
-        return ResponseEntity.ok(savedOrder);
-    }
-    @GetMapping
-    public  ResponseEntity<List<OrderDTO>> getAllOrder()
-    {
-        List<OrderDTO> AllOrders= orderService.getAllOrders();
-        return ResponseEntity.ok(AllOrders);
-    }
-    @GetMapping("/{id}")
-    public ResponseEntity<OrderDTO> getOrderById(@PathVariable String id)
-    {
-        OrderDTO order=orderService.getOrderById(id);
-        return ResponseEntity.ok(order);
+        return ResponseEntity.ok(orderService.createOrder(orderDto));
     }
 
-    @GetMapping("product/{productId}")
-    public ResponseEntity<OrderDTO> getProductOrderByProductId(@PathVariable String id){
-        OrderDTO orderDTO=orderService.getProductOrderByProductId(id);
-        return ResponseEntity.ok(orderDTO);
+    @GetMapping
+    public ResponseEntity<List<OrderDTO>> getAllOrders() {
+        return ResponseEntity.ok(orderService.getAllOrders());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<OrderDTO> getOrderById(@PathVariable String id) {
+        return ResponseEntity.ok(orderService.getOrderById(id));
+    }
+
+    /**
+     * Bug fix: original had @PathVariable String id on a route with {productId},
+     * so the variable was never bound and always null.
+     */
+    @GetMapping("/product/{productId}")
+    public ResponseEntity<OrderDTO> getOrderByProductId(@PathVariable String productId) {
+        return ResponseEntity.ok(orderService.getProductOrderByProductId(productId));
     }
 }

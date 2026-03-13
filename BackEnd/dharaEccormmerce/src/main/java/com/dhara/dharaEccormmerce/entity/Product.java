@@ -39,8 +39,11 @@ public class Product {
     private OrderStatus status;
 
     private Long pricePerDay;
+    @Builder.Default
     @ManyToMany(mappedBy = "products")
     private List<Order> orders = new ArrayList<>();
+
+    @Builder.Default
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "product_id")
     private List<ProductImage> productImages = new ArrayList<>();

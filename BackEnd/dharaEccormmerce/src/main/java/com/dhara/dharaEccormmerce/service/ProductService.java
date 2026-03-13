@@ -10,158 +10,144 @@ import com.dhara.dharaEccormmerce.mapper.ProductMapper;
 import com.dhara.dharaEccormmerce.repository.AdminRepository;
 import com.dhara.dharaEccormmerce.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ProductService {
 
     private final ProductRepository productRepository;
-    private final AdminRepository adminRepository;
-    private final S3Service s3Service;
-    private final ProductMapper productMapper;
+    private final AdminRepository    adminRepository;
+    private final S3Service          s3Service;
+    private final ProductMapper      productMapper;
+
     @Value("${aws.s3.bucket}")
     private String s3Bucket;
-//    private static final String UPLOAD_DIR = "uploads/";
-    private static final Path UPLOAD_DIR_PATH = Paths.get("uploads").toAbsolutePath().normalize();
+
+    // ── Reads ────────────────────────────────────────────────────────────────
+
+    /**
+     * Caches the full product list under key "products::all".
+     * TTL = 60 min (see RedisConfig).
+     */
+    @Cacheable(value = "products", key = "'all'")
     public List<ProductDTO> getAllProducts() {
+        log.debug("Cache MISS — loading all products from DB");
         return productRepository.findAll()
                 .stream()
                 .map(productMapper::toDTO)
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Caches a single product under "product::<id>".
+     */
+    @Cacheable(value = "product", key = "#id")
     public ProductDTO getProductById(String id) {
+        log.debug("Cache MISS — loading product {} from DB", id);
         return productRepository.findById(id)
                 .map(productMapper::toDTO)
                 .orElseThrow(() -> new ResourceNotFoundException("Product", "id", id));
     }
 
-    public ProductDTO createProduct(ProductRequest request, List<MultipartFile> imageFiles) throws IOException {
-        Admin admin = adminRepository.findById(request.getAdminId())
-                .orElseThrow(() -> new ResourceNotFoundException("Admin", "id", request.getAdminId()));
-        System.out.println(request+" "+imageFiles.size());
-        try {
-            Product product = productMapper.toEntity(request, admin);
+    // ── Writes ───────────────────────────────────────────────────────────────
 
-            // Save images locally and attach to product
-            List<ProductImage> savedImages = saveImagesToS3(imageFiles);
-            product.setProductImages(savedImages);
+    /**
+     * Create: evict the full-list cache so the next getAllProducts() reloads.
+     */
+    @Transactional
+    @CacheEvict(value = "products", key = "'all'")
+    public ProductDTO createProduct(ProductRequest request, List<MultipartFile> imageFiles)
+            throws IOException {
 
-            Product saved = productRepository.save(product);
-            return productMapper.toDTO(saved);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
-        }
+        Admin admin = findAdmin(request.getAdminId());
+        Product product = productMapper.toEntity(request, admin);
+        product.setProductImages(uploadImages(imageFiles));
+        return productMapper.toDTO(productRepository.save(product));
     }
 
-    public ProductDTO updateProduct(ProductRequest request, List<MultipartFile> imageFiles) throws IOException {
+    /**
+     * Update: refresh the single-product entry AND evict the list cache.
+     */
+    @Transactional
+    @Caching(
+            put   = { @CachePut(value = "product", key = "#request.id") },
+            evict = { @CacheEvict(value = "products", key = "'all'") }
+    )
+    public ProductDTO updateProduct(ProductRequest request, List<MultipartFile> imageFiles)
+            throws IOException {
+
         Product product = productRepository.findById(request.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Product", "id", request.getId()));
+        Admin admin = findAdmin(request.getAdminId());
 
-        Admin admin = adminRepository.findById(request.getAdminId())
-                .orElseThrow(() -> new ResourceNotFoundException("Admin", "id", request.getAdminId()));
-
-        // Update product fields
         productMapper.updateEntity(product, request, admin);
 
-        // Remove deleted images if any
+        // Remove images that the client flagged for deletion
         if (request.getRemovedImageIds() != null && !request.getRemovedImageIds().isEmpty()) {
-            List<ProductImage> imagesToRemove = product.getProductImages()
-                    .stream()
+            List<ProductImage> toRemove = product.getProductImages().stream()
                     .filter(img -> request.getRemovedImageIds().contains(img.getId()))
                     .collect(Collectors.toList());
-
-            for (ProductImage img : imagesToRemove) {
-                // Remove image from product
+            for (ProductImage img : toRemove) {
                 product.getProductImages().remove(img);
-
-                String key = productMapper.extractKeyFromUrl(img.getImageUrl());
-                s3Service.deleteFile(s3Bucket, key);
+                s3Service.deleteFile(s3Bucket, productMapper.extractKeyFromUrl(img.getImageUrl()));
             }
         }
 
-        // Add new uploaded images
+        // Upload any new images
         if (imageFiles != null && !imageFiles.isEmpty()) {
-            List<ProductImage> newImages = saveImagesToS3(imageFiles);
-            product.getProductImages().addAll(newImages);
+            product.getProductImages().addAll(uploadImages(imageFiles));
         }
 
-        Product savedProduct = productRepository.save(product);
-        return productMapper.toDTO(savedProduct);
+        return productMapper.toDTO(productRepository.save(product));
     }
 
-
+    /**
+     * Delete: evict both cache entries.
+     */
+    @Transactional
+    @Caching(evict = {
+            @CacheEvict(value = "product",  key = "#productId"),
+            @CacheEvict(value = "products", key = "'all'")
+    })
     public void deleteProduct(String productId) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new ResourceNotFoundException("Product", "id", productId));
-        for (ProductImage image : product.getProductImages()) {
-            String s3Key = productMapper.extractKeyFromUrl(image.getImageUrl());
-            s3Service.deleteFile(s3Bucket, s3Key);
+        for (ProductImage img : product.getProductImages()) {
+            s3Service.deleteFile(s3Bucket, productMapper.extractKeyFromUrl(img.getImageUrl()));
         }
         productRepository.delete(product);
     }
-    private List<ProductImage> saveImagesToS3(List<MultipartFile> imageFiles) throws IOException {
+
+    // ── Helpers ──────────────────────────────────────────────────────────────
+
+    private Admin findAdmin(Integer adminId) {
+        return adminRepository.findById(adminId)
+                .orElseThrow(() -> new ResourceNotFoundException("Admin", "id", adminId));
+    }
+
+    private List<ProductImage> uploadImages(List<MultipartFile> files) throws IOException {
         List<ProductImage> images = new ArrayList<>();
-
-        for (MultipartFile file : imageFiles) {
+        for (MultipartFile file : files) {
             String s3Url = s3Service.uploadFile(file.getBytes(), file.getOriginalFilename(), s3Bucket);
-
-            ProductImage image = new ProductImage();
-            image.setImageUrl(s3Url);
-
-            images.add(image);
+            ProductImage img = new ProductImage();
+            img.setImageUrl(s3Url);
+            images.add(img);
         }
         return images;
     }
-
-    // 🔽 helper to save images locally
-//    private List<ProductImage> saveImagesLocally(List<MultipartFile> imageFiles) throws IOException {
-//        List<ProductImage> images = new ArrayList<>();
-//        Files.createDirectories(Paths.get(UPLOAD_DIR));
-//
-//        for (MultipartFile file : imageFiles) {
-//            String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
-//            Path path = Paths.get(UPLOAD_DIR + fileName);
-//            Files.write(path, file.getBytes());
-//
-//            ProductImage image = new ProductImage();
-//            image.setImageUrl("/" + UPLOAD_DIR + fileName); // for URL access
-//
-//            images.add(image);
-//        }
-//
-//        return images;
-//    }
-
-    // Helper method to delete image file by path
-//    private void deleteImageFile(String imageUrl) {
-//        if (imageUrl == null || imageUrl.isBlank()) return;
-//
-//        try {
-//            // Extract file name from imageUrl
-//            String fileName = Paths.get(imageUrl).getFileName().toString();
-//            Path filePath = UPLOAD_DIR_PATH.resolve(fileName);
-//
-//            System.out.println("Attempting to delete file: " + filePath);
-//            if (Files.exists(filePath)) {
-//                Files.delete(filePath);
-//                System.out.println("File deleted successfully.");
-//            } else {
-//                System.out.println("File not found: " + filePath);
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
 }

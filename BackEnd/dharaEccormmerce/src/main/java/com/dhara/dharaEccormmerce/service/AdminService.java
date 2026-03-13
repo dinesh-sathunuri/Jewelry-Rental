@@ -8,41 +8,35 @@ import com.dhara.dharaEccormmerce.exceptions.ResourceNotFoundException;
 import com.dhara.dharaEccormmerce.mapper.AdminMapper;
 import com.dhara.dharaEccormmerce.repository.AdminRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AdminService {
-    private final AdminRepository adminRepository;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public AdminDTO registerAdmin(AdminRequest request)
-    {
-        if(adminRepository.findByUsername(request.getUsername()).isPresent())
-        {
-            throw new BadRequestException("Admin already Exists");
+    private final AdminRepository      adminRepository;
+    private final BCryptPasswordEncoder passwordEncoder;
+
+    public AdminDTO registerAdmin(AdminRequest request) {
+        if (adminRepository.findByUsername(request.getUsername()).isPresent()) {
+            throw new BadRequestException("Username already taken");
         }
-        try {
-            Admin admin = Admin.builder()
-                    .username(request.getUsername())
-                    .password(bCryptPasswordEncoder.encode(request.getPassword()))
-                    .build();
-            Admin saveAdmin = adminRepository.save(admin);
-            return AdminMapper.toDTO(saveAdmin);
-        }catch (Exception e)
-        {
-            e.printStackTrace();
-            throw e;
-        }
+        Admin admin = Admin.builder()
+                .username(request.getUsername())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .build();
+        return AdminMapper.toDTO(adminRepository.save(admin));
     }
-    public AdminDTO loginAdmin(AdminRequest request)
-    {
-        Admin admin= adminRepository.findByUsername(request.getUsername())
-                .orElseThrow(()->new ResourceNotFoundException("Admin","userName",request.getUsername()));
 
-        if(!bCryptPasswordEncoder.matches(request.getPassword(), admin.getPassword()))
-        {
+    public AdminDTO loginAdmin(AdminRequest request) {
+        Admin admin = adminRepository.findByUsername(request.getUsername())
+                // Use a generic message — don't reveal whether the username exists
+                .orElseThrow(() -> new BadRequestException("Invalid username or password"));
+
+        if (!passwordEncoder.matches(request.getPassword(), admin.getPassword())) {
             throw new BadRequestException("Invalid username or password");
         }
         return AdminMapper.toDTO(admin);
