@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { orderApi } from "../api";
 import Sidebar from "../Components/Sidebar";
-import "../styles/AllOrders.css";
+import "../Styles/AllOrders.css";
 
 export default function AllOrders() {
   const [orders, setOrders] = useState([]);
@@ -93,9 +93,7 @@ export default function AllOrders() {
               <th onClick={() => handleSort("id")}>
                 Order ID {sortBy === "id" && (sortOrder === "asc" ? "▲" : "▼")}
               </th>
-              <th onClick={() => handleSort("customerName")}>
-                Customer
-              </th>
+              <th onClick={() => handleSort("customerName")}>Customer</th>
               <th onClick={() => handleSort("totalPrice")}>
                 Total Price {sortBy === "totalPrice" && (sortOrder === "asc" ? "▲" : "▼")}
               </th>

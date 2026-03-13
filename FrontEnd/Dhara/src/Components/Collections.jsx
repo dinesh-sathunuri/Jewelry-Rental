@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import "../styles/Collection_HomePage.css";
+import "../Styles/Collection_HomePage.css";
 import collection1 from "../Images/collection1.jpeg";
 import collection2 from "../Images/collection2.jpeg";
 import collection3 from "../Images/collection3.jpeg";

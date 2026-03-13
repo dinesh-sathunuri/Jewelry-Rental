@@ -1,295 +1,361 @@
-// src/pages/AddProduct.jsx
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-import { productApi } from "../api";
-import Select from "react-select";
-import {
-  TAG_OPTIONS,
-  LENGTH_OPTIONS,
-  DESIGN_OPTIONS,
-  MATERIAL_OPTIONS,
-  STATUS_OPTIONS,
-  COLOR_OPTIONS,
-} from "../Constants/productOptions";
-import "../styles/AddProduct.css";
+import { productApi, orderApi } from "../api";
 import Sidebar from "../Components/Sidebar";
+import "../Styles/AddOrder.css";
 
-export default function AddProduct() {
-  const [product, setProduct] = useState({
-    id: "",
-    title: "",
-    design: [],
-    material: [],
-    color: [],
-    pricePerDay: 0,
-    status: "AVAILABLE",
-    adminId: null,
-    tag: [],
-    length: "",
-    comments: "",
-  });
+const calculateTotalPrice = (productIds, startDate, endDate, discount, products) => {
+  if (!startDate || !endDate) return 0;
 
-  const [manualTag, setManualTag] = useState("");
-  const [manualLength, setManualLength] = useState("");
-  const [manualMaterial, setManualMaterial] = useState("");
-  const [manualDesign, setManualDesign] = useState("");
-  const [manualColor, setManualColor] = useState("");
-  const [images, setImages] = useState([]);
-  const [imagePreviews, setImagePreviews] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const { admin } = useAuth();
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+
+  if (isNaN(start.getTime()) || isNaN(end.getTime()) || end <= start) return 0;
+
+  const days = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+  const total = productIds.reduce((sum, id) => {
+    const product = products.find((p) => p.id.toString() === id);
+    return sum + (product?.pricePerDay || 0) * days;
+  }, 0);
+
+  const validDiscount = discount >= 0 && discount <= 100 ? discount : 0;
+  return total * (1 - validDiscount / 100);
+};
+
+export default function AddOrder() {
   const navigate = useNavigate();
+  const [order, setOrder] = useState({
+    productIds: [],
+    totalPrice: 0,
+    discount: 0,
+    startDate: "",
+    endDate: "",
+    paymentMethod: "",
+    customer: { fullName: "", email: "", phoneNumber: "" },
+  });
+  const [searchId, setSearchId] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [products, setProducts] = useState([]);
+  const searchRef = useRef(null);
+  const [loading, setLoading] = useState(false);
 
-  // Handles multi-select changes from react-select component
-  const handleMultiSelectChange = (field, selectedOptions) => {
-    setProduct((prev) => ({
-      ...prev,
-      [field]: selectedOptions ? selectedOptions.map((opt) => opt.value) : [],
-    }));
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setShowSuggestions(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  // Recalculate total whenever any relevant value changes
+  useEffect(() => {
+    const total = calculateTotalPrice(
+      order.productIds,
+      order.startDate,
+      order.endDate,
+      order.discount,
+      products
+    );
+    setOrder((prev) => ({ ...prev, totalPrice: total }));
+  }, [order.productIds, order.startDate, order.endDate, order.discount, products]);
+
+  const fetchProducts = async () => {
+    try {
+      const response = await productApi.getAll();
+      setProducts(response.data);
+    } catch (error) {
+      alert("Failed to fetch products: " + error.message);
+    }
   };
 
-  // Handles single select changes (native select)
-  const handleSingleSelectChange = (field, value) => {
-    setProduct((prev) => ({ ...prev, [field]: value }));
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    setSearchId(value);
+    setShowSuggestions(value.length > 0);
 
-    // Clear manual inputs if user changes select away from "Other"
-    if (field === "tag" && value !== "Other") setManualTag("");
-    if (field === "length" && value !== "Other") setManualLength("");
-    if (field === "material" && value !== "Other") setManualMaterial("");
-    if (field === "design" && value !== "Other") setManualDesign("");
-    if (field !== "color") setManualColor("");
+    if (value.length > 0) {
+      const filteredSuggestions = products
+        .filter(
+          (p) =>
+            p.id.toString().startsWith(value) &&
+            !order.productIds.includes(p.id.toString()) &&
+            p.status === "AVAILABLE"
+        )
+        .map((p) => p.id.toString())
+        .slice(0, 5);
+      setSuggestions(filteredSuggestions);
+    } else {
+      setSuggestions([]);
+    }
+  };
+
+  const handleSuggestionClick = (id) => {
+    const product = products.find((p) => p.id.toString() === id);
+    if (!product || product.status !== "AVAILABLE") {
+      alert("This product is not available.");
+      return;
+    }
+    setOrder((prev) => ({
+      ...prev,
+      productIds: [...prev.productIds, id],
+    }));
+    setSearchId("");
+    setShowSuggestions(false);
+  };
+
+  // Fix: remove product from list — the useEffect above handles recalculating total
+  const removeProduct = (id) => {
+    setOrder((prev) => ({
+      ...prev,
+      productIds: prev.productIds.filter((pid) => pid !== id),
+    }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (images.length === 0) {
-      alert("Please select at least one image.");
+    if (order.productIds.length === 0) {
+      alert("Please select at least one product.");
+      return;
+    }
+    if (!order.customer.fullName || !order.customer.email || !order.customer.phoneNumber) {
+      alert("Please fill out all customer details.");
+      return;
+    }
+    if (!order.startDate || !order.endDate || !order.paymentMethod) {
+      alert("Please fill out all order details.");
+      return;
+    }
+    if (new Date(order.endDate) <= new Date(order.startDate)) {
+      alert("End date must be after start date.");
       return;
     }
 
-    // Resolve final values including manual input if "Other" selected
-    const finalTag = product.tag.includes("Other") && manualTag
-      ? [...product.tag.filter((t) => t !== "Other"), manualTag.trim()]
-      : product.tag;
-    const finalLength = product.length === "Other" ? manualLength.trim() : product.length;
-    const finalMaterial = product.material.includes("Other") && manualMaterial
-      ? [...product.material.filter((m) => m !== "Other"), manualMaterial.trim()]
-      : product.material;
-    const finalDesign = product.design.includes("Other") && manualDesign
-      ? [...product.design.filter((d) => d !== "Other"), manualDesign.trim()]
-      : product.design;
-    const finalColor = product.color.includes("Other") && manualColor
-      ? [...product.color.filter((c) => c !== "Other"), manualColor.trim()]
-      : product.color;
+    const finalTotal = calculateTotalPrice(
+      order.productIds,
+      order.startDate,
+      order.endDate,
+      order.discount,
+      products
+    );
 
-    if (
-      (!finalTag.length && product.tag.includes("Other")) ||
-      (!finalLength && product.length === "Other") ||
-      (!finalMaterial.length && product.material.includes("Other")) ||
-      (!finalDesign.length && product.design.includes("Other")) ||
-      (!finalColor.length && product.color.includes("Other"))
-    ) {
-      alert("Please fill out all required fields or provide manual inputs.");
+    if (isNaN(finalTotal) || finalTotal <= 0) {
+      alert("Total price is invalid. Check dates and selected products.");
       return;
     }
-
-    const request = {
-      ...product,
-      tag: finalTag,
-      length: finalLength,
-      material: finalMaterial,
-      design: finalDesign,
-      color: finalColor,
-      pricePerDay: Number(product.pricePerDay),
-      adminId: admin?.id,
-    };
 
     try {
       setLoading(true);
-      await productApi.create(request, images);
+      const orderData = {
+        ...order,
+        totalPrice: Number(finalTotal),
+        startDate: new Date(order.startDate).toISOString(),
+        endDate: new Date(order.endDate).toISOString(),
+      };
+      await orderApi.create(orderData);
+      alert("Order created successfully!");
       navigate("/admin/dashboard");
     } catch (error) {
-      alert("Failed to create product: " + error.message);
+      alert("Failed to create order: " + error.message);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleImageChange = (e) => {
-    const newFiles = Array.from(e.target.files);
-    const totalFiles = [...images, ...newFiles];
-
-    if (totalFiles.length > 5) {
-      alert("You can upload a maximum of 5 images.");
-      return;
-    }
-
-    setImages(totalFiles);
-    const newPreviews = newFiles.map((file) => URL.createObjectURL(file));
-    setImagePreviews((prev) => [...prev, ...newPreviews]);
-  };
-
-  // Render multi-select react-select with manual input for "Other"
-  const renderMultiSelect = (label, field, options, manualValue, setManualValue) => (
-    <label>
-      {label}:
-      <Select
-        isMulti
-        options={[...options.map((opt) => ({ value: opt, label: opt })), { value: "Other", label: "Other" }]}
-        onChange={(selected) => handleMultiSelectChange(field, selected)}
-        value={product[field].map((val) => ({ value: val, label: val }))}
-        placeholder={`Select ${label.toLowerCase()}`}
-      />
-      {product[field].includes("Other") && (
-        <input
-          type="text"
-          placeholder={`Enter ${label.toLowerCase()} manually`}
-          value={manualValue}
-          onChange={(e) => setManualValue(e.target.value)}
-          required
-          className="manual-input"
-        />
-      )}
-    </label>
-  );
-
-  // Render single select for length (or others if needed)
-  const renderSingleSelect = (label, field, options, manualValue, setManualValue) => (
-    <label>
-      {label}:
-      <select
-        value={product[field]}
-        onChange={(e) => handleSingleSelectChange(field, e.target.value)}
-        required
-      >
-        <option value="">Select {label.toLowerCase()}</option>
-        {options.map((opt) => (
-          <option key={opt} value={opt}>{opt}</option>
-        ))}
-        <option value="Other">Other</option>
-      </select>
-      {product[field] === "Other" && (
-        <input
-          type="text"
-          placeholder={`Enter ${label.toLowerCase()} manually`}
-          value={manualValue}
-          onChange={(e) => setManualValue(e.target.value)}
-          required
-          className="manual-input"
-        />
-      )}
-    </label>
-  );
-
   return (
-    <div className="dashboard-container">
-      <Sidebar />
+    <div className="add-order-page">
+      <div className="dashboard-container">
+        <Sidebar />
+        <div className="order-form">
+          <h2>Create New Order</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="form-section">
+              <h3>Customer Details</h3>
+              <div className="form-row">
+                <label>
+                  Full Name:
+                  <input
+                    type="text"
+                    placeholder="Enter full name"
+                    value={order.customer.fullName}
+                    onChange={(e) =>
+                      setOrder((prev) => ({
+                        ...prev,
+                        customer: { ...prev.customer, fullName: e.target.value },
+                      }))
+                    }
+                    required
+                  />
+                </label>
+                <label>
+                  Email:
+                  <input
+                    type="email"
+                    placeholder="Enter email"
+                    value={order.customer.email}
+                    onChange={(e) =>
+                      setOrder((prev) => ({
+                        ...prev,
+                        customer: { ...prev.customer, email: e.target.value },
+                      }))
+                    }
+                    required
+                  />
+                </label>
+                <label>
+                  Phone Number:
+                  <input
+                    type="tel"
+                    placeholder="Enter phone number"
+                    value={order.customer.phoneNumber}
+                    onChange={(e) =>
+                      setOrder((prev) => ({
+                        ...prev,
+                        customer: { ...prev.customer, phoneNumber: e.target.value },
+                      }))
+                    }
+                    required
+                  />
+                </label>
+              </div>
+            </div>
 
-      <div className="product-form">
-        <h2>Add Product</h2>
-        <form onSubmit={handleSubmit}>
-          <label>
-            Product ID:
-            <input
-              type="text"
-              value={product.id}
-              onChange={(e) => setProduct({ ...product, id: e.target.value })}
-              placeholder="Product ID"
-              required
-            />
-          </label>
-
-          <label>
-            Title:
-            <input
-              type="text"
-              value={product.title}
-              onChange={(e) => setProduct({ ...product, title: e.target.value })}
-              placeholder="Product Title"
-              required
-            />
-          </label>
-
-          {renderMultiSelect("Design", "design", DESIGN_OPTIONS, manualDesign, setManualDesign)}
-          {renderSingleSelect("Material", "material", MATERIAL_OPTIONS, manualMaterial, setManualMaterial)}
-          {renderMultiSelect("Color", "color", COLOR_OPTIONS, manualColor, setManualColor)}
-
-          <label>
-            Price Per Day:
-            <input
-              type="number"
-              value={product.pricePerDay}
-              onChange={(e) => setProduct({ ...product, pricePerDay: e.target.value })}
-              placeholder="Price Per Day"
-              min="0"
-              required
-            />
-          </label>
-
-          <label>
-            Status:
-            <select
-              value={product.status}
-              onChange={(e) => setProduct({ ...product, status: e.target.value })}
-              required
-            >
-              {STATUS_OPTIONS.map((opt) => (
-                <option key={opt} value={opt}>{opt}</option>
-              ))}
-            </select>
-          </label>
-
-          {renderMultiSelect("Tag", "tag", TAG_OPTIONS, manualTag, setManualTag)}
-          {renderSingleSelect("Length", "length", LENGTH_OPTIONS, manualLength, setManualLength)}
-
-          <label>
-            Comments:
-            <textarea
-              placeholder="Add optional comments"
-              value={product.comments}
-              onChange={(e) => setProduct({ ...product, comments: e.target.value })}
-            />
-          </label>
-
-          <label>
-            Upload Images:
-            <input type="file" multiple accept="image/*" onChange={handleImageChange} />
-          </label>
-
-          {imagePreviews.length > 0 && (
-            <div className="image-previews">
-              {imagePreviews.map((preview, index) => (
-                <div className="image-container" key={index}>
-                  <img src={preview} alt={`Preview ${index + 1}`} className="preview-image" />
-                  <button
-                    type="button"
-                    className="remove-button"
-                    onClick={() => {
-                      const newPreviews = [...imagePreviews];
-                      const newImages = [...images];
-                      newPreviews.splice(index, 1);
-                      newImages.splice(index, 1);
-                      setImagePreviews(newPreviews);
-                      setImages(newImages);
-                    }}
+            <div className="form-section">
+              <h3>Order Details</h3>
+              <div className="form-row">
+                <label>
+                  Start Date:
+                  <input
+                    type="date"
+                    value={order.startDate}
+                    onChange={(e) =>
+                      setOrder((prev) => ({ ...prev, startDate: e.target.value }))
+                    }
+                    required
+                  />
+                </label>
+                <label>
+                  End Date:
+                  <input
+                    type="date"
+                    value={order.endDate}
+                    onChange={(e) =>
+                      setOrder((prev) => ({ ...prev, endDate: e.target.value }))
+                    }
+                    required
+                  />
+                </label>
+                <label>
+                  Payment Method:
+                  <select
+                    value={order.paymentMethod}
+                    onChange={(e) =>
+                      setOrder((prev) => ({ ...prev, paymentMethod: e.target.value }))
+                    }
+                    required
                   >
-                    ×
-                  </button>
+                    <option value="">Select payment method</option>
+                    <option value="CREDIT_CARD">Credit Card</option>
+                    <option value="DEBIT_CARD">Debit Card</option>
+                    <option value="PAYPAL">PayPal</option>
+                    <option value="CASH">Cash</option>
+                  </select>
+                </label>
+                <label>
+                  Discount (%):
+                  <input
+                    type="number"
+                    min="0"
+                    max="100"
+                    step="1"
+                    placeholder="Enter discount (0-100)"
+                    value={order.discount}
+                    onChange={(e) =>
+                      setOrder((prev) => ({ ...prev, discount: Number(e.target.value) }))
+                    }
+                  />
+                </label>
+              </div>
+            </div>
+
+            <div className="form-section">
+              <h3>Products</h3>
+              <div className="form-row">
+                <div className="search-container" ref={searchRef}>
+                  <input
+                    type="text"
+                    placeholder="Search by Product ID"
+                    value={searchId}
+                    onChange={handleSearchChange}
+                    className="search-input"
+                  />
+                  {showSuggestions && suggestions.length > 0 && (
+                    <ul className="suggestions-list">
+                      {suggestions.map((id) => (
+                        <li
+                          key={id}
+                          className="suggestion-item"
+                          onClick={() => handleSuggestionClick(id)}
+                        >
+                          ID: {id} | Tag: {products.find((p) => p.id.toString() === id)?.tag}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
-              ))}
+              </div>
+              {order.productIds.length > 0 && (
+                <div className="selected-products">
+                  <h4>Selected Products:</h4>
+                  <ul>
+                    {order.productIds.map((id) => {
+                      const product = products.find((p) => p.id.toString() === id);
+                      return (
+                        <li key={id} className="product-item">
+                          {product?.productImages?.length > 0 && (
+                            <img
+                              src={product.productImages[0].imageUrl}
+                              alt={`Product ${id}`}
+                              className="product-image"
+                            />
+                          )}
+                          <span className="product-info">
+                            ID: {id} | Tag: {product?.tag || "N/A"}
+                          </span>
+                          <button
+                            type="button"
+                            className="remove-product"
+                            onClick={() => removeProduct(id)}
+                          >
+                            ×
+                          </button>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                  <p>
+                    <strong>Total Price (after {order.discount}% discount):</strong>{" "}
+                    ${order.totalPrice.toFixed(2)}
+                  </p>
+                </div>
+              )}
+            </div>
+
+            <button type="submit">Create Order</button>
+          </form>
+          {loading && (
+            <div className="loading-overlay">
+              <div className="spinner" />
+              <p>Creating order, please wait...</p>
             </div>
           )}
-
-          <button type="submit">Save</button>
-        </form>
-        {loading && (
-        <div className="loading-overlay">
-          <div className="spinner" />
-          <p>Uploading product, please wait...</p>
         </div>
-      )}
       </div>
     </div>
   );

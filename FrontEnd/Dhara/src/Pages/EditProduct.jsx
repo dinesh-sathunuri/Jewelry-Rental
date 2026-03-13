@@ -11,7 +11,7 @@ import {
   COLOR_OPTIONS,
   STATUS_OPTIONS,
 } from "../Constants/productOptions";
-import "../styles/EditProduct.css";
+import "../Styles/EditProduct.css";
 import Sidebar from "../Components/Sidebar";
 
 const toReactSelectOptions = (array) => array.map((val) => ({ label: val, value: val }));
@@ -59,11 +59,11 @@ export default function EditProduct() {
 
         setProduct({
           title,
-          tag: Array.isArray(tag) ? tag : [tag],
+          tag: Array.isArray(tag) ? tag : tag ? [tag] : [],
           length,
-          design: Array.isArray(design) ? design : [design],
+          design: Array.isArray(design) ? design : design ? [design] : [],
           material,
-          color: Array.isArray(color) ? color : [color],
+          color: Array.isArray(color) ? color : color ? [color] : [],
           pricePerDay,
           status,
           comments: comments || "",
@@ -122,13 +122,11 @@ export default function EditProduct() {
       return;
     }
     setLoading(true);
-    const updatedProduct = {
+
+    // Build the request — include removedImageIds so backend knows what to delete
+    const request = {
       ...product,
       id,
-    };
-
-    const request = {
-      ...updatedProduct,
       adminId: admin?.id,
       removedImageIds,
     };
@@ -136,22 +134,23 @@ export default function EditProduct() {
     try {
       const filesToUpload = newImages.map((img) => img.file);
       await productApi.update(id, request, filesToUpload);
+      alert("Product updated successfully!");
       navigate("/admin/dashboard");
     } catch (error) {
       alert("Failed to update product: " + error.message);
     } finally {
       setLoading(false);
-      alert("Product updated successfully!");
     }
   };
 
-    function Loader() {
+  function Loader() {
     return (
       <div className="loader-overlay">
         <div className="spinner"></div>
       </div>
     );
   }
+
   return (
     <div className="dashboard-container">
       <Sidebar />
@@ -191,9 +190,7 @@ export default function EditProduct() {
             >
               <option value="">Select Length</option>
               {LENGTH_OPTIONS.map((opt) => (
-                <option key={opt} value={opt}>
-                  {opt}
-                </option>
+                <option key={opt} value={opt}>{opt}</option>
               ))}
             </select>
           </div>
@@ -219,9 +216,7 @@ export default function EditProduct() {
             >
               <option value="">Select Material</option>
               {MATERIAL_OPTIONS.map((opt) => (
-                <option key={opt} value={opt}>
-                  {opt}
-                </option>
+                <option key={opt} value={opt}>{opt}</option>
               ))}
             </select>
           </div>
@@ -260,9 +255,7 @@ export default function EditProduct() {
               required
             >
               {STATUS_OPTIONS.map((opt) => (
-                <option key={opt} value={opt}>
-                  {opt}
-                </option>
+                <option key={opt} value={opt}>{opt}</option>
               ))}
             </select>
           </div>
@@ -291,7 +284,7 @@ export default function EditProduct() {
               {existingImages.map((img, i) => (
                 <div key={"exist-" + i} className="image-container">
                   <img
-                    src={`${img.imageUrl}`}
+                    src={img.imageUrl}
                     alt={`Existing Preview ${i}`}
                     className="preview-image"
                   />

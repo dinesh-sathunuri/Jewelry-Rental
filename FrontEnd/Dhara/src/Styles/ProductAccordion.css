@@ -1,32 +1,41 @@
 .accordion-wrapper {
-  font-family: 'Inter', sans-serif;
-  border-top: 1px solid #c70039;
-  border-bottom: 1px solid #c70039;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  background: #fffbe6;
+  border-radius: 16px;
+  box-shadow: 0 6px 24px rgba(191, 161, 74, 0.1);
+  padding: 1.5rem;
+  margin-top: 2rem;
+  transition: all 0.3s ease;
 }
 
-.accordion-item {
-  padding: 12px 0;
+.accordion-item+.accordion-item {
+  margin-top: 1rem;
 }
 
 .accordion-header {
-  font-size: 16px;
-  font-weight: 600;
-  color: #111;
-  cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 0.9rem 1rem;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #f7f5e6, #fffbe6);
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--primary-color);
+  transition: all 0.3s ease;
 }
 
 .accordion-header:hover {
-  color: #c70039;
+  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+  color: #fff;
+}
+
+.accordion-header.active {
+  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+  color: #fff;
 }
 
 .arrow {
   transition: transform 0.3s ease;
-  font-size: 16px;
 }
 
 .arrow.open {
@@ -36,41 +45,67 @@
 .accordion-content {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.4s ease, opacity 0.3s ease;
-  opacity: 0;
-  padding: 0 2px;
+  transition: max-height 0.4s ease, padding 0.4s ease;
+  padding: 0 1rem;
+  background: #f8f5ee;
+  border-radius: 0 0 12px 12px;
+  margin-top: 0.3rem;
 }
 
 .accordion-content.open {
-  max-height: 200px;
-  /* Adjust as needed */
-  opacity: 1;
-  margin-top: 10px;
-  color: #333;
-  font-size: 14px;
+  max-height: 500px;
+  padding: 1rem;
 }
 
-/* Footer icons */
+.accordion-content p {
+  margin: 0;
+  color: var(--text-color);
+  line-height: 1.5rem;
+}
+
+/* Footer Buttons */
 .accordion-footer {
   display: flex;
-  justify-content: flex-start;
-  gap: 2rem;
-  margin-top: 20px;
-  padding-top: 12px;
-  border-top: 1px solid #c70039;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 1.5rem;
 }
 
 .icon-link {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: 500;
-  font-size: 14px;
-  color: #111;
+  flex: 1;
+  text-align: center;
+  padding: 0.8rem 1rem;
+  border-radius: 12px;
+  font-weight: 600;
   text-decoration: none;
+  transition: all 0.3s ease;
 }
 
-.icon {
-  font-size: 18px;
-  display: inline-block;
+.whatsapp-link {
+  background: linear-gradient(135deg, var(--secondary-color), #f7e7b4);
+  color: var(--primary-color);
+}
+
+.whatsapp-link:hover {
+  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+  color: #fff;
+}
+
+.google-form-link {
+  background: linear-gradient(135deg, #4285f4, #1a73e8);
+  color: #fff;
+}
+
+.google-form-link:hover {
+  box-shadow: 0 8px 20px rgba(66, 133, 244, 0.3);
+}
+
+.share-link {
+  background: linear-gradient(135deg, #d1d5db, #e5e7eb);
+  color: #1a2e1a;
+}
+
+.share-link:hover {
+  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+  color: #fff;
 }

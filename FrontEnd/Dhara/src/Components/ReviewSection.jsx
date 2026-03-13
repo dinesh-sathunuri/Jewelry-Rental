@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../styles/Reviews_HomePage.css";
+import "../Styles/Reviews_HomePage.css";
 
 const reviews = [
   {
@@ -20,15 +20,11 @@ const ReviewSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handlePrev = () => {
-    setCurrentIndex((prev) =>
-      prev === 0 ? reviews.length - 1 : prev - 1
-    );
+    setCurrentIndex((prev) => (prev === 0 ? reviews.length - 1 : prev - 1));
   };
 
   const handleNext = () => {
-    setCurrentIndex((prev) =>
-      prev === reviews.length - 1 ? 0 : prev + 1
-    );
+    setCurrentIndex((prev) => (prev === reviews.length - 1 ? 0 : prev + 1));
   };
 
   const { name, text } = reviews[currentIndex];
@@ -37,9 +33,8 @@ const ReviewSection = () => {
     <section className="review-section">
       <h2>Customer Reviews</h2>
       <div className="review-card">
-        <p className="review-text">“{text}”</p>
+        <p className="review-text">"{text}"</p>
         <p className="review-author">— {name}</p>
-
         <div className="review-buttons">
           <button onClick={handlePrev}>&lt;</button>
           <button onClick={handleNext}>&gt;</button>

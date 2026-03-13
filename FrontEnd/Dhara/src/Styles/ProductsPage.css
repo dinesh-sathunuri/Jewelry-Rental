@@ -1,23 +1,256 @@
 /* === Root Variables === */
+
 :root {
-  --primary-color: #2563eb;
-  --text-color: #1f2937;
-  --secondary-color: #374151;
-  --background-color: #f3f4f6;
-  --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  --hover-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+  --primary-color: #176a3a;
+  /* Green */
+  --secondary-color: #bfa14a;
+  /* Gold */
+  --background-color: #f8f5ee;
+  /* Light beige */
+  --accent-color: #0f4d2f;
+  /* Dark Green */
+  --text-color: #1a2e1a;
+  --card-shadow: 0 6px 24px rgba(191, 161, 74, 0.1);
+  --hover-shadow: 0 12px 36px rgba(191, 161, 74, 0.18);
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  .luxury-bg {
+    background: var(--green-gradient);
+    min-height: 100vh;
+  }
+
+  .luxury-filters {
+    background: white;
+    border-radius: 18px;
+    box-shadow: var(--card-shadow);
+    padding: 0.75rem 1.5rem;
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
+    border: 2px solid #e5e7eb;
+  }
+
+  .luxury-filter-select {
+    min-width: 110px;
+    max-width: 160px;
+    padding: 0.5rem 1rem;
+    border-radius: 12px;
+    border: 1.5px solid var(--secondary-color);
+    background: var(--gold-gradient);
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 1rem;
+    transition: var(--transition);
+    box-shadow: 0 2px 8px rgba(191, 161, 74, 0.07);
+  }
+
+  .luxury-filter-select:focus {
+    outline: 2px solid var(--primary-color);
+    background: #f7e7b4;
+  }
+
+  .luxury-clear-filters {
+    padding: 0.5rem 1.2rem;
+    border-radius: 12px;
+    border: none;
+    background: var(--primary-color);
+    color: #fff;
+    font-weight: 700;
+    font-size: 1rem;
+    box-shadow: 0 2px 8px rgba(23, 106, 58, 0.07);
+    transition: var(--transition);
+  }
+
+  .luxury-clear-filters:hover {
+    background: var(--secondary-color);
+    color: var(--primary-color);
+  }
+
+  .products-grid {
+    background: rgba(191, 161, 74, 0.04);
+    border-radius: 18px;
+    padding: 1.5rem 1rem;
+    box-shadow: var(--card-shadow);
+  }
+
+  .product-card {
+    background: linear-gradient(135deg, #fffbe6 0%, #f7f5e6 100%);
+    border-radius: 18px;
+    box-shadow: var(--card-shadow);
+    border: 2px solid var(--secondary-color);
+    overflow: hidden;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+
+  .product-card:hover {
+    transform: scale(1.03);
+    border-color: var(--primary-color);
+    box-shadow: var(--hover-shadow);
+  }
+
+  .product-image-container {
+    background: linear-gradient(135deg, #e6f7e6 0%, #fffbe6 100%);
+    height: 220px;
+    border-radius: 18px 18px 0 0;
+    overflow: hidden;
+  }
+
+  .product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 2px solid var(--secondary-color);
+    transition: transform 0.4s, filter 0.4s;
+  }
+
+  .product-card:hover .product-image {
+    transform: scale(1.1) rotate(2deg);
+    filter: brightness(0.9);
+  }
+
+  .product-info {
+    padding: 1rem;
+  }
+
+  .product-info h3 {
+    color: var(--primary-color);
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+    transition: var(--transition);
+  }
+
+  .product-card:hover .product-info h3 {
+    color: var(--accent-color);
+    transform: translateX(5px);
+  }
+
+  .product-price {
+    color: var(--secondary-color);
+    font-weight: 700;
+    transition: transform 0.3s;
+  }
+
+  .product-card:hover .product-price {
+    transform: scale(1.1);
+  }
+
+  .pagination button {
+    background: var(--gold-gradient);
+    color: var(--primary-color);
+    border: 1.5px solid var(--secondary-color);
+    font-weight: 700;
+  }
+
+  .pagination button.active {
+    background: var(--primary-color);
+    color: #fff;
+    border-color: var(--secondary-color);
+  }
+
+  .modal-content {
+    background: var(--gold-gradient);
+    border-radius: 24px;
+    box-shadow: 0 25px 50px rgba(191, 161, 74, 0.18);
+    color: var(--primary-color);
+  }
+
+  /* === Close Button (Mobile Fix) === */
+  .close-button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    /* reduced from 1.5rem for smaller screens */
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: var(--secondary-color);
+    z-index: 1100;
+    /* make sure it's above all content */
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+  }
+
+  .close-button:hover {
+    color: var(--primary-color);
+    background: rgba(37, 99, 235, 0.1);
+    transform: rotate(90deg);
+  }
+
+  /* Mobile specific adjustments */
+  @media (max-width: 768px) {
+    .close-button {
+      top: 0.8rem;
+      right: 0.8rem;
+      font-size: 1.8rem;
+      width: 35px;
+      height: 35px;
+    }
+
+    .modal-content {
+      padding: 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .close-button {
+      top: 0.5rem;
+      right: 0.5rem;
+      font-size: 1.5rem;
+      width: 32px;
+      height: 32px;
+    }
+  }
+
+  .modal-main-image-container {
+    border: 3px solid var(--secondary-color);
+  }
+
+  .modal-main-image {
+    background: #fff;
+    border-radius: 12px;
+    border: 2px solid var(--secondary-color);
+  }
+
+  .thumbnail-image.selected {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 24px rgba(23, 106, 58, 0.18);
+  }
+
+  .btn-container .action-btn {
+    background: var(--primary-color);
+    color: #fff;
+    border-radius: 12px;
+    font-weight: 700;
+    border: none;
+    box-shadow: 0 2px 8px rgba(23, 106, 58, 0.07);
+    transition: var(--transition);
+  }
+
+  .btn-container .action-btn.whatsapp {
+    background: var(--secondary-color);
+    color: var(--primary-color);
+  }
+
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   --fast-transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* === Layout === */
 .products-page {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  background-color: var(--background-color);
-  color: var(--text-color);
+  background: var(--background-color);
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  font-family: 'Inter', sans-serif;
+  color: var(--text-color);
 }
 
 .products-container {
@@ -26,6 +259,7 @@
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
+  margin-top: 5rem;
 }
 
 .products-container h1 {
@@ -188,22 +422,26 @@
 
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 2.2rem;
   margin-bottom: 2rem;
+  background: linear-gradient(135deg, #f8f5ee 60%, #f7e7b4 100%);
+  border-radius: 18px;
+  padding: 1.5rem 1rem;
+  box-shadow: 0 4px 24px rgba(191, 161, 74, 0.08);
 }
 
 .product-card {
-  background: white;
-  border-radius: 20px;
-  box-shadow: var(--card-shadow);
+  background: linear-gradient(135deg, #f7e7b4 0%, #fffbe6 100%);
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(191, 161, 74, 0.12);
   padding: 0;
-  text-align: center;
+  text-align: left;
   transition: var(--transition);
   cursor: pointer;
   position: relative;
   overflow: hidden;
-  border: 1px solid #f3f4f6;
+  border: 2px solid #bfa14a;
   animation: cardSlideUp 0.6s ease-out;
 }
 
@@ -220,17 +458,18 @@
 }
 
 .product-card:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: var(--hover-shadow);
-  border-color: var(--primary-color);
+  box-shadow: 0 16px 48px rgba(191, 161, 74, 0.22);
+  border-color: #176a3a;
+  transform: scale(1.03);
 }
 
 .product-image-container {
   position: relative;
   width: 100%;
-  height: 250px;
+  height: 220px;
   overflow: hidden;
-  border-radius: 20px 20px 0 0;
+  border-radius: 18px 18px 0 0;
+  background: linear-gradient(135deg, #e6f7e6 0%, #fffbe6 100%);
 }
 
 .product-image {
@@ -240,6 +479,9 @@
   transition: var(--transition);
   position: relative;
   z-index: 1;
+  border-radius: 12px;
+  border: 2px solid #bfa14a;
+  background: #fff;
 }
 
 .product-card:hover .product-image {
@@ -344,16 +586,18 @@
 
 /* Product Info */
 .product-info {
-  padding: 1.5rem;
-  background: white;
-  border-radius: 0 0 20px 20px;
+  padding: 1.2rem 1rem 1rem 1rem;
+  background: transparent;
+  border-radius: 0 0 18px 18px;
+  text-align: left;
 }
 
 .product-info h3 {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-  color: var(--text-color);
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+  color: #176a3a;
+  letter-spacing: 0.5px;
   transition: var(--fast-transition);
 }
 
@@ -363,10 +607,11 @@
 }
 
 .product-price {
-  font-size: 1.1rem;
+  font-size: 1.08rem;
   font-weight: 700;
-  color: var(--primary-color);
+  color: #bfa14a;
   margin: 0;
+  letter-spacing: 0.5px;
   transition: var(--fast-transition);
 }
 
@@ -376,57 +621,6 @@
 
 /* === Pagination === */
 .pagination {
-  display: flex;
-  justify-content: center;
-  gap: 0.5rem;
-  margin-top: 2rem;
-}
-
-.pagination button {
-  background-color: white;
-  border: 2px solid #e5e7eb;
-  padding: 0.75rem 1.25rem;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: var(--transition);
-  font-weight: 600;
-  position: relative;
-  overflow: hidden;
-}
-
-.pagination button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.1), transparent);
-  transition: left 0.5s ease;
-}
-
-.pagination button:hover:not(:disabled) {
-  background-color: var(--primary-color);
-  color: white;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
-}
-
-.pagination button:hover:not(:disabled)::before {
-  left: 100%;
-}
-
-.pagination button.active {
-  background: linear-gradient(135deg, var(--primary-color), #1d4ed8);
-  color: white;
-  border-color: var(--primary-color);
-  transform: scale(1.1);
-}
-
-.pagination button:disabled {
-  cursor: not-allowed;
-  opacity: 0.5;
-  background-color: #f9fafb;
   border-color: #e5e7eb;
 }
 
@@ -489,7 +683,7 @@
   border: none;
   font-size: 2rem;
   cursor: pointer;
-  color: var(--secondary-color);
+  color: #a67c1a;
   transition: var(--transition);
   width: 40px;
   height: 40px;
@@ -521,18 +715,24 @@
   position: relative;
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: var(--card-shadow);
+  box-shadow: 0 8px 32px rgba(37, 99, 235, 0.12);
+  border: 3px solid var(--primary-color);
 }
 
 .modal-main-image {
   width: 100%;
-  height: 500px;
-  object-fit: scale-down;
+  max-width: 500px;
+  height: 400px;
+  object-fit: contain;
+  background: #f3f4f6;
+  margin: 0 auto;
+  display: block;
   transition: var(--transition);
 }
 
 .modal-main-image:hover {
-  transform: scale(1.05);
+  transform: scale(1.08);
+  box-shadow: 0 12px 32px rgba(37, 99, 235, 0.18);
 }
 
 .image-thumbnails {
@@ -542,6 +742,8 @@
   overflow-x: auto;
   margin-top: 1rem;
   padding: 0.5rem 0;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .thumbnail-container {
@@ -555,7 +757,7 @@
   border-radius: 12px;
   cursor: pointer;
   transition: var(--transition);
-  border: 2px solid transparent;
+  border: 2.5px solid #e5e7eb;
   position: relative;
   overflow: hidden;
 }
@@ -583,8 +785,8 @@
 
 .thumbnail-image.selected {
   border-color: var(--primary-color);
-  transform: scale(1.15);
-  box-shadow: 0 0 20px rgba(37, 99, 235, 0.4);
+  transform: scale(1.18);
+  box-shadow: 0 0 24px rgba(37, 99, 235, 0.18);
 }
 
 /* === Modal Details === */
@@ -829,9 +1031,15 @@
     gap: 1.5rem;
   }
 
+  .modal {
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(6px);
+  }
+
   .modal-content {
-    width: 95%;
-    padding: 1.5rem;
+    background: linear-gradient(135deg, #fffbe6 0%, #f7f5e6 100%);
+    border-radius: 24px;
+    padding: 2rem;
   }
 
   .modal-layout {
@@ -938,4 +1146,38 @@
     box-shadow: none;
     border: 1px solid #ccc;
   }
+}
+
+.filters-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.filters-row select,
+.filters-row .clear-filters-btn {
+  min-width: 150px;
+  flex: 1;
+  max-width: 200px;
+  padding: 0.6rem 1rem;
+  border-radius: 12px;
+  border: 1.5px solid var(--secondary-color);
+  background: linear-gradient(135deg, var(--secondary-color) 0%, #f7e7b4 100%);
+  color: var(--primary-color);
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.filters-row select:focus,
+.filters-row .clear-filters-btn:hover {
+  border-color: var(--primary-color);
+  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+  color: #fff;
+}
+
+.products-grid {
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
 }

@@ -6,29 +6,34 @@ const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [admin, setAdmin] = useState(() => {
-    // Initialize from localStorage if available (for persistence)
     const savedAdmin = localStorage.getItem("admin");
     return savedAdmin ? JSON.parse(savedAdmin) : null;
   });
 
   const login = async (credentials) => {
     try {
-      const response = await adminApi.login(credentials);
-      const { id, username } = response.data;
-      if (!id || !username) throw new Error("Invalid admin data");
-      const adminData = { id, username };
+      const { username, password } = credentials;
+      const response = await adminApi.login(username, password);
+      const { id, username: returnedUsername } = response.data;
+      if (!id || !returnedUsername) throw new Error("Invalid admin data");
+
+      const adminData = { id, username: returnedUsername };
       setAdmin(adminData);
-      localStorage.setItem("admin", JSON.stringify(adminData)); // Persist admin data
+      // Store admin info for UI
+      localStorage.setItem("admin", JSON.stringify(adminData));
+      // Store credentials so the interceptor can attach Basic Auth to future requests
+      localStorage.setItem("adminCredentials", JSON.stringify({ username, password }));
       return adminData;
     } catch (error) {
       console.error("Login failed:", error.message);
-      throw error; // Let the caller handle the error
+      throw error;
     }
   };
 
   const logout = () => {
     setAdmin(null);
-    localStorage.removeItem("admin"); // Clear persisted data
+    localStorage.removeItem("admin");
+    localStorage.removeItem("adminCredentials");
   };
 
   const register = async (request) => {

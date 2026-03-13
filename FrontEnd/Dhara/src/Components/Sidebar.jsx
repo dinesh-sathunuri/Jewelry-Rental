@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import "../styles/Sidebar.css"; 
+import "../Styles/Sidebar.css";
+
 export default function Sidebar() {
   const { logout } = useAuth();
   const navigate = useNavigate();
@@ -11,12 +12,14 @@ export default function Sidebar() {
     { path: "/add-product", label: "➕ Add Product" },
     { path: "/add-admin", label: "👤 Add Admin" },
     { path: "/add-order", label: "📦 Add Order" },
-      { path: "/all-orders", label: "📋 All Orders" },
+    { path: "/all-orders", label: "📋 All Orders" },
   ];
+
   const handleLogout = () => {
     logout();
     navigate("/");
   };
+
   return (
     <aside className="sidebar">
       <h2 className="sidebar-heading">⚙️ Admin Dashboard</h2>

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import '../styles/ProductAccordion.css';
+import '../Styles/ProductAccordion.css';
 
 export default function ProductAccordion({ product }) {
   const [openSection, setOpenSection] = useState(null);
@@ -39,7 +39,6 @@ export default function ProductAccordion({ product }) {
         >
           <span className="icon">❓</span> Ask a question
         </a>
-
         <a
           href="https://forms.gle/YOUR_GOOGLE_FORM_LINK"
           className="icon-link"
@@ -48,7 +47,6 @@ export default function ProductAccordion({ product }) {
         >
           <span className="icon">📝</span> Fill Google Form
         </a>
-
         <a href="#" className="icon-link">
           <span className="icon">🔗</span> Share
         </a>

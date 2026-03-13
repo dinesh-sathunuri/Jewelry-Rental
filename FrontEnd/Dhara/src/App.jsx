@@ -11,6 +11,7 @@ import ProductsPage from "./Pages/ProductsPage";
 import AllOrders from "./Pages/AllOrders";
 import PrivateRoute from "./context/PrivateRoute";
 import NotFound from "./Pages/NotFound";
+import JewelryRentalWebsite from "./Pages/JewelryRentalWebsite";
 
 function App() {
   
